@@ -5,7 +5,7 @@ const {createCodeFile, getJobStatus} = require("./controllers/codeEditor/compile
 const { superUserSignup, superUserLogin, superUserEdit, getSuperAdminData } = require("./controllers/superUser/superUser");
 const { clientUserSignup, clientUserLogin, AddCompany, getAllClients, clientUserEdit, getClientData } = require("./controllers/clientUser/clientUser");
 const { addQuestion, getAllQuestions } = require("./controllers/questionBank/questionBank");
-const { addInterview, getAllInterviews, getInteviewCount, getMonthlyStats } = require("./controllers/interview/interview");
+const { addInterview, getAllInterviews, getInteviewCount, getMonthlyStats, getInterviewByUUID, editInterview } = require("./controllers/interview/interview");
 const app = express();
 
 app.use(cors({
@@ -32,9 +32,10 @@ app.post("/api/client/edit",protect,clientUserEdit)
 
 /* Interviews */
 app.post("/api/interview/add",protect,addInterview)
-app.get("/api/interivew/stats",getInteviewCount)
+app.get("/api/interivew/stats",protect,getInteviewCount)
 app.post("/api/interview/all",protect,getAllInterviews)
 app.get("/api/interview/monthly-data",protect,getMonthlyStats)
+app.post("/api/interview/edit",editInterview)
 
 /* Question */
 app.post("/api/question/add",protect,addQuestion)
@@ -42,7 +43,8 @@ app.post("/api/question/all",protect,getAllQuestions)
 
 /* Code Editor */
 app.post("/api/run",protect,createCodeFile)
-app.get("/api/status",protect,getJobStatus)
+app.get("/api/code/status",protect,getJobStatus)
+app.get("/api/test/info",getInterviewByUUID)
 
 /* Handling route  not found - 404 */
 app.use(function(req, res) {

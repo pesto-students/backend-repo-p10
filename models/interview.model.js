@@ -53,8 +53,13 @@ const interviewSchema = mongoose.Schema({
         default: UPCOMING,
         enum: [UPCOMING, PASSED, FAILED, CANCELLED],
     },
-    response: {
+    questions: {
         type: Array,
+        default: [],
+    },
+    response: {
+        type: Object,
+        default: {}
     }
 
 }, {

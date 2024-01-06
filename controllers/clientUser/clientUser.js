@@ -105,7 +105,6 @@ const AddCompany = async (req, res) => {
   };
   try {
     company = await new Company(payload).save();
-    console.log("======================company", company);
     req.body.companyID = company?._id;
     clientUserSignup(req, res);
   } catch (error) {
@@ -263,10 +262,9 @@ const clientUserEdit = async (req, res) => {
   }
 };
 
-const getClientData = async(req, res) => {
+const getClientData = async (req, res) => {
   const id = req?.body?.user?._id;
-  try
-  {
+  try {
     const user = await ClientUser.findById(id);
     const data = {
       _id: user.id,
@@ -283,16 +281,14 @@ const getClientData = async(req, res) => {
       message: "Data fetched successfully",
       data,
     });
-  }
-  catch(error)
-  {
+  } catch (error) {
     return res.status(500).send({
       status: false,
       message: "Some error Occurred",
       error: error,
     });
   }
-}
+};
 
 module.exports = {
   clientUserSignup,
